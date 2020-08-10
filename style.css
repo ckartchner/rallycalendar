@@ -1,0 +1,70 @@
+/* CSS custom properties (variables)*/
+:root {
+  --table-borders: #204051;
+}
+
+body {
+  background-color: #F0F0F0;
+  /* background-color: #3E3C38; */
+  font-family: 'Roboto';
+}
+
+table {
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 1em;
+  border: 3px solid #204051;
+}
+
+table th {
+  text-transform: uppercase;
+  text-align: left;
+  background: #204051;
+  color: #FFF;
+  padding: 8px;
+  min-width: 30px;
+}
+
+table td {
+  text-align: left;
+  padding: 8px;
+  border-right: 2px solid #204051;
+}
+
+table td:last-child {
+  border-right: none;
+}
+
+table tbody tr:nth-child(2n) td {
+  background: #f09f62;
+}
+
+th:first-of-type {
+  border-top-left-radius: 10px;
+}
+th:last-of-type {
+  border-top-right-radius: 10px;
+}
+tr:last-of-type td:first-of-type {
+  border-bottom-left-radius: 10px;
+}
+tr:last-of-type td:last-of-type {
+  border-bottom-right-radius: 10px;
+}
+
+#content {
+  display: flex;
+  justify-content: center;
+}
+
+#title{
+  font-weight: bold;
+  /* color: white; */
+}
+
+#primary-title {
+  font-size: 100px;
+}
+
+#secondary-title{
+  font-size: 32px;
+}
