@@ -9,6 +9,10 @@ body {
   font-family: 'Roboto';
 }
 
+a {
+  color: black;
+}
+
 table {
   font-family: 'Open Sans', sans-serif;
   border-radius: 1em;

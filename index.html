@@ -27,7 +27,7 @@
       </thead>
       <tbody>
         <tr v-for="event in events">
-          <td>{{event.name}}</td>
+          <td><a v-bind:href=`${event.eventInfo}`>{{event.name}}</a></td>
           <td>{{event.startDate}} - {{event.endDate}}</td>
         </tr>
       </tbody>
