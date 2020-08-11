@@ -27,7 +27,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="event in events">
+        <tr 
+          v-for="event in events" 
+          v-bind:class="{past: event.status == 'past', active: event.status == 'active', next: event.status == 'next'}"
+        >
           <td><a v-bind:href=`${event.eventInfo}`>{{event.name}}</a></td>
           <td>{{event.startDate}} - {{event.endDate}}</td>
         </tr>

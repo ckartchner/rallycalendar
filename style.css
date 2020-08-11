@@ -83,3 +83,17 @@ tr:last-of-type td:last-of-type {
 #tag-line{
   text-align: center;
 }
+
+.past{
+  text-decoration: line-through
+}
+
+.active{
+  font-weight: bold;
+  color: green;
+}
+
+.next{
+  font-weight: bold;
+  color: rgb(187, 51, 27);
+}
