@@ -39,7 +39,7 @@ table td:last-child {
 }
 
 table tbody tr:nth-child(2n) td {
-  background: #f09f62;
+  background: #D6D6D6;
 }
 
 th:first-of-type {
