@@ -97,3 +97,8 @@ tr:last-of-type td:last-of-type {
   font-weight: bold;
   color: rgb(187, 51, 27);
 }
+
+.horizontal_center{
+  display: flex;
+  justify-content: center;
+}
