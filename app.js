@@ -2,7 +2,6 @@ const calendar_api = "https://api.wrc.com/contel-page/83388/calendar/active-seas
 const locale = window.navigator.languages;
 
 function parseDate(dateString) {
-  console.log(dateString);
   const dateParts = dateString.split('-');
   const year = dateParts[0];
   const month = dateParts[1] - 1;
@@ -21,9 +20,9 @@ function parseDate(dateString) {
       formattedDate = dateObj.toLocaleDateString('en-us', formatOptions);
     }
   }
-  console.log(`Formatted date: ${formattedDate}`)
   return formattedDate;
 }
+
 function parseCal(data) {
   let events = []
   data.rallyEvents.items.forEach(event => {
@@ -36,14 +35,16 @@ function parseCal(data) {
   return events;
 }
 
-let firstTable = new Vue({
-  el: '#firstTable',
+let eventTable = new Vue({
+  el: '#vue-scope',
   data: {
-    events: null
+    events: null,
+    year: null,
   },
   async created() {
     const response = await fetch(calendar_api);
     const data = await response.json();
+    this.year = data.seasonYear;
     this.events = parseCal(data);
     // TODO: Handle API unavailable
   }

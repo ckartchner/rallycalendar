@@ -63,6 +63,7 @@ tr:last-of-type td:last-of-type {
 #title{
   font-weight: bold;
   /* color: white; */
+  text-align: center;
 }
 
 #primary-title {
@@ -71,4 +72,14 @@ tr:last-of-type td:last-of-type {
 
 #secondary-title{
   font-size: 32px;
+}
+
+#center-column{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#tag-line{
+  text-align: center;
 }

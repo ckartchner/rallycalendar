@@ -8,17 +8,18 @@
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id='center-column'>
+  <div id='vue-scope'>
   <div id='title'>
     <div id='primary-title'>WRC</div>
     <div id='secondary-title'>
       World Rally Championship<br>
-      Calendar
+      {{year}} Calendar
     </div>
   </div>
   <br>
   <div>
-    <table id="firstTable" cellspacing="0">
+    <table id="eventTable" cellspacing="0">
       <thead>
         <tr>
           <th>Event</th>
@@ -33,10 +34,11 @@
       </tbody>
     </table>
   </div>
-  <p>
+  <p id=tag-line>
     Find the next rally<br>
-    Keep the winner of the last event a surprise
+    Keep the winner of the last one a surprise
   </p>
+  </div>
 </body>
 <script src="app.js"></script>
 </html>
