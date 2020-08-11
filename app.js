@@ -71,13 +71,19 @@ let eventTable = new Vue({
   el: '#vue-scope',
   data: {
     events: null,
-    year: null,
+    year: '',
+    state: 'uninitialized',
   },
   async created() {
     const response = await fetch(calendar_api);
-    const data = await response.json();
-    this.year = data.seasonYear;
-    this.events = parseCal(data);
-    // TODO: Handle API unavailable
+    let data = undefined;
+    if (response.ok) {
+      data = await response.json();
+      this.year = data.seasonYear;
+      this.events = parseCal(data);
+      this.state = 'good_response';
+    } else {
+      this.state = 'bad_response';
+    }
   }
 });

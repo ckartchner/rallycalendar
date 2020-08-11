@@ -18,7 +18,7 @@
     </div>
   </div>
   <br>
-  <div>
+  <div class="horizontal_center">
     <table id="eventTable" cellspacing="0">
       <thead>
         <tr>
@@ -26,7 +26,15 @@
           <th>Dates</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="state == 'uninitialized'">
+        <td>Loading...</td>
+        <td>Loading...</td>
+      </tbody>
+      <tbody v-else-if="state == 'bad_response'">
+        <td>Data unavailable</td>
+        <td>Please try again later</td>
+      </tbody>
+      <tbody v-else>
         <tr 
           v-for="event in events" 
           v-bind:class="{past: event.status == 'past', active: event.status == 'active', next: event.status == 'next'}"
