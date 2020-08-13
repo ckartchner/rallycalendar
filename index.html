@@ -8,47 +8,54 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body id='center-column'>
+<body>
   <div id='vue-scope'>
-  <div id='title'>
-    <div id='primary-title'>WRC</div>
-    <div id='secondary-title'>
-      World Rally Championship<br>
-      {{year}} Calendar
+  <div id='wrapper'>
+    <div id='title'>
+      <div id='primary-title'>WRC</div>
+      <div id='secondary-title'>
+        World Rally Championship<br>
+        {{year}} Calendar
+      </div>
     </div>
+    <br>
+    <div class="horizontal_center">
+      <table id="eventTable" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Dates</th>
+          </tr>
+        </thead>
+        <tbody v-if="state == 'uninitialized'">
+          <td>Loading...</td>
+          <td>Loading...</td>
+        </tbody>
+        <tbody v-else-if="state == 'bad_response'">
+          <td>Data unavailable</td>
+          <td>Please try again later</td>
+        </tbody>
+        <tbody v-else>
+          <tr 
+            v-for="event in events" 
+            v-bind:class="{past: event.status == 'past', active: event.status == 'active', next: event.status == 'next'}"
+          >
+            <td><a v-bind:href=`${event.eventInfo}`>{{event.name}}</a></td>
+            <td>{{event.startDate}} - {{event.endDate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p id=tag-line>
+      Find the next rally<br>
+      Keep the winner of the last one a surprise
+    </p>
+    <div style="flex-grow:1"></div>
+    <footer>
+      © Copyright 2020<br>
+      Contact: admin(at)rallycalender(dot)net
+    </footer>
   </div>
-  <br>
-  <div class="horizontal_center">
-    <table id="eventTable" cellspacing="0">
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Dates</th>
-        </tr>
-      </thead>
-      <tbody v-if="state == 'uninitialized'">
-        <td>Loading...</td>
-        <td>Loading...</td>
-      </tbody>
-      <tbody v-else-if="state == 'bad_response'">
-        <td>Data unavailable</td>
-        <td>Please try again later</td>
-      </tbody>
-      <tbody v-else>
-        <tr 
-          v-for="event in events" 
-          v-bind:class="{past: event.status == 'past', active: event.status == 'active', next: event.status == 'next'}"
-        >
-          <td><a v-bind:href=`${event.eventInfo}`>{{event.name}}</a></td>
-          <td>{{event.startDate}} - {{event.endDate}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <p id=tag-line>
-    Find the next rally<br>
-    Keep the winner of the last one a surprise
-  </p>
   </div>
 </body>
 <script src="app.js"></script>

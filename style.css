@@ -1,12 +1,13 @@
 /* CSS custom properties (variables)*/
 :root {
-  --table-borders: #204051;
+  --table-dark: #204051;
 }
 
 body {
   background-color: #F0F0F0;
-  /* background-color: #3E3C38; */
   font-family: 'Roboto';
+  margin:0;
+  padding:0;
 }
 
 a {
@@ -16,13 +17,13 @@ a {
 table {
   font-family: 'Open Sans', sans-serif;
   border-radius: 1em;
-  border: 3px solid #204051;
+  border: 3px solid var(--table-dark);
 }
 
 table th {
   text-transform: uppercase;
   text-align: left;
-  background: #204051;
+  background: var(--table-dark);
   color: #FFF;
   padding: 8px;
   min-width: 30px;
@@ -31,7 +32,7 @@ table th {
 table td {
   text-align: left;
   padding: 8px;
-  border-right: 2px solid #204051;
+  border-right: 2px solid var(--table-dark);
 }
 
 table td:last-child {
@@ -55,14 +56,8 @@ tr:last-of-type td:last-of-type {
   border-bottom-right-radius: 10px;
 }
 
-#content {
-  display: flex;
-  justify-content: center;
-}
-
 #title{
   font-weight: bold;
-  /* color: white; */
   text-align: center;
 }
 
@@ -72,12 +67,6 @@ tr:last-of-type td:last-of-type {
 
 #secondary-title{
   font-size: 32px;
-}
-
-#center-column{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 #tag-line{
@@ -95,10 +84,22 @@ tr:last-of-type td:last-of-type {
 
 .next{
   font-weight: bold;
-  color: rgb(187, 51, 27);
+  color: #bb331b;
 }
 
 .horizontal_center{
   display: flex;
   justify-content: center;
+}
+
+#wrapper{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer{
+  text-align: center;
+  color: #969696;
+  padding: 15px;
 }
