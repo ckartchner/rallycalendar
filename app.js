@@ -43,6 +43,7 @@ function parseCal(data) {
   // Set event status
   current_date = new Date()
   next_event_index = undefined;
+  active_event = false;
   next_event_diff = new Date(current_date.getFullYear() + 5, 0) - current_date;
   for (let i = 0; i < events.length; i++) {
     event = events[i]
@@ -51,9 +52,10 @@ function parseCal(data) {
     } else if (event.rawStartDate > current_date) {
       events[i].status = 'future';
     } else if (event.rawStartDate <= current_date && event.rawEndDate >= current_date) {
-      event[i].status = 'active';
+      events[i].status = 'active';
+      active_event = true;
     } else {
-      event[i].status = 'unknown';
+      events[i].status = 'unknown';
     }
     time_till_event = event.rawEndDate - current_date
     if (time_till_event < next_event_diff && time_till_event > 0) {
@@ -61,7 +63,7 @@ function parseCal(data) {
       next_event_diff = time_till_event;
     }
   }
-  if (next_event_index !== 'undefined') {
+  if (next_event_index !== 'undefined' && active_event === false) {
     events[next_event_index].status = 'next';
   }
   return events;
