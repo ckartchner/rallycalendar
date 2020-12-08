@@ -63,7 +63,8 @@ function parseCal(data) {
       next_event_diff = time_till_event;
     }
   }
-  if (next_event_index !== 'undefined' && active_event === false) {
+  noIndexStates = ['undefined', undefined]
+  if (noIndexStates.includes(next_event_index) === false && active_event === false) {
     events[next_event_index].status = 'next';
   }
   return events;
