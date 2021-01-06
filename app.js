@@ -35,7 +35,10 @@ function parseCal(data) {
     rawEndDate = parseDate(eventDays[eventDays.length - 1]['eventDay']);
     startDate = formatDate(rawStartDate);
     endDate = formatDate(rawEndDate);
-    eventInfo = `https://www.wrc.com${event.pageInfo['url']}`
+    eventInfo = 'undefined';
+    if (event.pageInfo !== null){
+      eventInfo = `https://www.wrc.com${event.pageInfo['url']}`
+    } 
     events.push({'name': event.name, 'startDate': startDate, 'endDate': endDate, 
                  'eventInfo': eventInfo, 'rawStartDate': rawStartDate, 
                  'rawEndDate': rawEndDate});
