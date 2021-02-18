@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WRC Calendar</title>
+  <title>WRC Calendar without spoilers</title>
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
   <link rel="stylesheet" href="style.css">
@@ -11,15 +11,15 @@
 <body>
   <div id='vue-scope'>
   <div id='wrapper'>
-    <div id='title'>
-      <div id='primary-title'>WRC</div>
-      <div id='secondary-title'>
+    <header id='title'>
+      <h1 id='primary-title'>WRC</h1>
+      <h2 id='secondary-title'>
         World Rally Championship<br>
         {{year}} Calendar
-      </div>
-    </div>
+      </h2>
+    </header>
     <br>
-    <div class="horizontal_center">
+    <main class="horizontal_center">
       <table id="eventTable" cellspacing="0">
         <thead>
           <tr>
@@ -27,30 +27,36 @@
             <th>Dates</th>
           </tr>
         </thead>
-        <tbody v-if="state == 'uninitialized'">
-          <td>Loading...</td>
-          <td>Loading...</td>
+        <tbody v-if="state === 'uninitialized'">
+          <tr>
+            <td>Loading...</td>
+            <td>Loading...</td>
+          </tr>
         </tbody>
-        <tbody v-else-if="state == 'bad_response'">
-          <td>Data unavailable</td>
-          <td>Please try again later</td>
+        <tbody v-else-if="state === 'bad_response'">
+          <tr>
+            <td>Data unavailable</td>
+            <td>Please try again later</td>
+          </tr>
         </tbody>
         <tbody v-else>
           <tr 
             v-for="event in events" 
-            v-bind:class="{past: event.status == 'past', active: event.status == 'active', next: event.status == 'next'}"
+            v-bind:class="{past: event.status === 'past', active: event.status === 'active', next: event.status === 'next'}"
           >
-            <td v-if="event.eventInfo === 'undefined'">{{event.name}}</td>
+            <td v-if="event.eventInfo === 'undefined'">{{event.name}} </td>
             <td v-else><a v-bind:href=`${event.eventInfo}`>{{event.name}}</a></td>
             <td>{{event.startDate}} - {{event.endDate}}</td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <p id=tag-line>
-      Find the next rally<br>
-      Keep the winner of the last one a surprise
-    </p>
+    </main>
+    <section id=tag-line>
+      <p>
+        Find the next rally<br>
+        Keep the winner of the last one a surprise
+      </p>
+    </section>
     <div style="flex-grow:1"></div>
     <footer>
       © Copyright 2021<br>

@@ -63,10 +63,12 @@ tr:last-of-type td:last-of-type {
 
 #primary-title {
   font-size: 100px;
+  margin: 0;
 }
 
 #secondary-title{
   font-size: 32px;
+  margin: 0;
 }
 
 #tag-line{
