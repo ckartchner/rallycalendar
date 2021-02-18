@@ -98,7 +98,7 @@ tr:last-of-type td:last-of-type {
   justify-content: center;
 }
 
-#wrapper {
+#vue-scope {
   height: 100vh;
   display: flex;
   flex-direction: column;
