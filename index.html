@@ -46,7 +46,10 @@
         <tbody v-else>
           <tr 
             v-for="event in events" 
-            v-bind:class="{past: event.status === 'past', active: event.status === 'active', next: event.status === 'next'}"
+            v-bind:class="{
+              past: event.status === 'past',
+              active: event.status === 'active',
+              next: event.status === 'next'}"
           >
             <td v-if="event.eventInfo === 'undefined'">{{event.name}} </td>
             <td v-else><a v-bind:href=`${event.eventInfo}`>{{event.name}}</a></td>
