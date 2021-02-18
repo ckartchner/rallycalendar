@@ -75,7 +75,7 @@ tr:last-of-type td:last-of-type {
   text-align: center;
 }
 
-#eventTable {
+#event-table {
   border-spacing: 0;
 }
 
@@ -93,7 +93,7 @@ tr:last-of-type td:last-of-type {
   color: #bb331b;
 }
 
-.horizontal_center {
+.horizontal-center {
   display: flex;
   justify-content: center;
 }
