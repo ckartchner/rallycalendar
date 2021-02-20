@@ -79,6 +79,11 @@ tr:last-of-type td:last-of-type {
   border-spacing: 0;
 }
 
+main {
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
 .past {
   text-decoration: line-through;
 }
