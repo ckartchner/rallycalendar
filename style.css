@@ -115,3 +115,6 @@ footer {
   color: #969696;
   padding: 15px;
 }
+
+/* Hide vue template when loading */
+[v-cloak] {display: none}
