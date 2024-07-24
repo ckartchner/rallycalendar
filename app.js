@@ -1,20 +1,15 @@
-const currentTime = new Date();
-const currentYear = currentTime.getFullYear();
+const currentDateTime = new Date();
+const currentYear = currentDateTime.getFullYear();
 const calendar_api = `https://api.wrc.com/content/filters/calendar?championship=wrc&origin=vcms&year=${currentYear}`;
 const locale = window.navigator.languages;
 
-function parseDate(dateString) {
-  const dateParts = dateString.split("-");
-  const year = dateParts[0];
-  const month = dateParts[1] - 1;
-  const day = dateParts[2];
-  const rawDateObj = new Date(year, month, day);
-  return rawDateObj;
-}
-
 function formatDate(dateObj) {
-  let formattedDate = "undefined";
-  const formatOptions = { weekday: "short", day: "numeric", month: "short" };
+  dateObj = new Date(dateObj);
+  const formatOptions = {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+  };
   // Handle locales not usable by toLocaleDateString
   try {
     formattedDate = dateObj.toLocaleDateString(locale, formatOptions);
@@ -32,48 +27,40 @@ function formatDate(dateObj) {
 function parseCal(data) {
   let events = [];
   data.content.forEach((event) => {
-    // eventDays = event.eventDays
-    // rawStartDate = parseDate(eventDays[0]['eventDay']);
-    // rawEndDate = parseDate(eventDays[eventDays.length - 1]['eventDay']);
-    // startDate = formatDate(rawStartDate);
-    // endDate = formatDate(rawEndDate);
-    // eventInfo = 'undefined';
-    // if (event.pageInfo !== null){
-    //   eventInfo = `https://www.wrc.com${event.pageInfo['url']}`
-    // }
-    // events.push({'name': event.title, 'startDate': startDate, 'endDate': endDate,
-    //              'eventInfo': event.Description, 'rawStartDate': rawStartDate,
-    //              'rawEndDate': rawEndDate});
+    eventInfo = 'undefined';
+    if (event.id !== null && event.seriesUid !== null){
+      eventInfo = `https://www.wrc.com/c/event/${event.uid}_${event.seriesUid}`
+    }
     events.push({
       name: event.title,
-      startDate: event.startDateLocal,
-      endDate: event.endDateLocal,
+      startDate: formatDate(event.startDateLocal),
+      endDate: formatDate(event.endDateLocal),
       rawStartDate: new Date(event.startDateLocal),
       rawEndDate: new Date(event.endDateLocal),
-      eventInfo: event.description,
+      eventInfo: eventInfo,
+      description: event.description,
     });
   });
   // Set event status
-  current_date = new Date();
   next_event_index = undefined;
   active_event = false;
-  next_event_diff = new Date(current_date.getFullYear() + 5, 0) - current_date;
+  next_event_diff = new Date(currentDateTime.getFullYear() + 5, 0) - currentDateTime;
   for (let i = 0; i < events.length; i++) {
     event = events[i];
-    if (event.rawEndDate < current_date) {
+    if (event.rawEndDate < currentDateTime) {
       events[i].status = "past";
-    } else if (event.rawStartDate > current_date) {
+    } else if (event.rawStartDate > currentDateTime) {
       events[i].status = "future";
     } else if (
-      event.rawStartDate <= current_date &&
-      event.rawEndDate >= current_date
+      event.rawStartDate <= currentDateTime &&
+      event.rawEndDate >= currentDateTime
     ) {
       events[i].status = "active";
       active_event = true;
     } else {
       events[i].status = "unknown";
     }
-    time_till_event = event.rawEndDate - current_date;
+    time_till_event = event.rawEndDate - currentDateTime;
     if (time_till_event < next_event_diff && time_till_event > 0) {
       next_event_index = i;
       next_event_diff = time_till_event;

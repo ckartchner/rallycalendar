@@ -48,8 +48,8 @@
           </tr>
         </tbody>
         <tbody v-else>
-          <tr 
-            v-for="event in events" 
+          <tr
+            v-for="event in events"
             v-bind:class="{
               past: event.status === 'past',
               active: event.status === 'active',
@@ -70,7 +70,8 @@
     </section>
     <div style="flex-grow:1"></div>
     <footer>
-      © Copyright 2021
+      See a problem?</br>
+      <a href="https://github.com/ckartchner/rallycalendar">Raise an issue, or fix the code.</a>
     </footer>
   </div>
 </body>
