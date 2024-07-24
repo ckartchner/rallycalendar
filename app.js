@@ -1,4 +1,6 @@
-const calendar_api = "https://api.wrc.com/contel-page/83388/calendar/active-season/";
+const currentTime = new Date()
+const currentYear = currentTime.getFullYear()
+const calendar_api = `https://api.wrc.com/content/filters/calendar?championship=wrc&origin=vcms&year=${currentYear}`;
 const locale = window.navigator.languages;
 
 function parseDate(dateString) {
@@ -29,47 +31,53 @@ function formatDate(dateObj) {
 
 function parseCal(data) {
   let events = []
-  data.rallyEvents.items.forEach(event => {
-    eventDays = event.eventDays
-    rawStartDate = parseDate(eventDays[0]['eventDay']);
-    rawEndDate = parseDate(eventDays[eventDays.length - 1]['eventDay']);
-    startDate = formatDate(rawStartDate);
-    endDate = formatDate(rawEndDate);
-    eventInfo = 'undefined';
-    if (event.pageInfo !== null){
-      eventInfo = `https://www.wrc.com${event.pageInfo['url']}`
-    } 
-    events.push({'name': event.name, 'startDate': startDate, 'endDate': endDate, 
-                 'eventInfo': eventInfo, 'rawStartDate': rawStartDate, 
-                 'rawEndDate': rawEndDate});
+  data.content.forEach(event => {
+    // eventDays = event.eventDays
+    // rawStartDate = parseDate(eventDays[0]['eventDay']);
+    // rawEndDate = parseDate(eventDays[eventDays.length - 1]['eventDay']);
+    // startDate = formatDate(rawStartDate);
+    // endDate = formatDate(rawEndDate);
+    // eventInfo = 'undefined';
+    // if (event.pageInfo !== null){
+    //   eventInfo = `https://www.wrc.com${event.pageInfo['url']}`
+    // }
+    // events.push({'name': event.title, 'startDate': startDate, 'endDate': endDate, 
+    //              'eventInfo': event.Description, 'rawStartDate': rawStartDate, 
+    //              'rawEndDate': rawEndDate});
+    events.push({
+      'name': event.title, 
+      'startDate': event.startDateLocal, 
+      'endDate': event.endDateLocal, 
+      'eventInfo': event.description
+    });
   })
-  // Set event status
-  current_date = new Date()
-  next_event_index = undefined;
-  active_event = false;
-  next_event_diff = new Date(current_date.getFullYear() + 5, 0) - current_date;
-  for (let i = 0; i < events.length; i++) {
-    event = events[i]
-    if (event.rawEndDate < current_date) {
-      events[i].status = 'past';
-    } else if (event.rawStartDate > current_date) {
-      events[i].status = 'future';
-    } else if (event.rawStartDate <= current_date && event.rawEndDate >= current_date) {
-      events[i].status = 'active';
-      active_event = true;
-    } else {
-      events[i].status = 'unknown';
-    }
-    time_till_event = event.rawEndDate - current_date
-    if (time_till_event < next_event_diff && time_till_event > 0) {
-      next_event_index = i;
-      next_event_diff = time_till_event;
-    }
-  }
-  noIndexStates = ['undefined', undefined]
-  if (noIndexStates.includes(next_event_index) === false && active_event === false) {
-    events[next_event_index].status = 'next';
-  }
+  // // Set event status
+  // current_date = new Date()
+  // next_event_index = undefined;
+  // active_event = false;
+  // next_event_diff = new Date(current_date.getFullYear() + 5, 0) - current_date;
+  // for (let i = 0; i < events.length; i++) {
+  //   event = events[i]
+  //   if (event.rawEndDate < current_date) {
+  //     events[i].status = 'past';
+  //   } else if (event.rawStartDate > current_date) {
+  //     events[i].status = 'future';
+  //   } else if (event.rawStartDate <= current_date && event.rawEndDate >= current_date) {
+  //     events[i].status = 'active';
+  //     active_event = true;
+  //   } else {
+  //     events[i].status = 'unknown';
+  //   }
+  //   time_till_event = event.rawEndDate - current_date
+  //   if (time_till_event < next_event_diff && time_till_event > 0) {
+  //     next_event_index = i;
+  //     next_event_diff = time_till_event;
+  //   }
+  // }
+  // noIndexStates = ['undefined', undefined]
+  // if (noIndexStates.includes(next_event_index) === false && active_event === false) {
+  //   events[next_event_index].status = 'next';
+  // }
   return events;
 }
 
@@ -77,7 +85,7 @@ let eventTable = new Vue({
   el: '#vue-scope',
   data: {
     events: null,
-    year: '',
+    year: currentYear,
     state: 'uninitialized',
   },
   async created() {
@@ -85,7 +93,6 @@ let eventTable = new Vue({
     let data = undefined;
     if (response.ok) {
       data = await response.json();
-      this.year = data.seasonYear;
       this.events = parseCal(data);
       this.state = 'good_response';
     } else {
