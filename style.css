@@ -1,6 +1,7 @@
 /* CSS custom properties (variables)*/
 :root {
   --table-dark: #204051;
+  --footer-text: #969696;
 }
 
 body {
@@ -112,8 +113,12 @@ main {
 
 footer {
   text-align: center;
-  color: #969696;
+  color: var(--footer-text);
   padding: 15px;
+}
+
+footer a {
+  color: var(--footer-text);
 }
 
 /* Hide vue template when loading */
